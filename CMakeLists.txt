@@ -16,13 +16,13 @@ cmake_minimum_required (VERSION 3.24)
 
 ########################################################################
 #
-# Project: IgANet-TEMPLATE
+# Project: IgANet-Matlab
 #
 ########################################################################
-project(IgANet-TEMPLATE)
+project(IgANet-Matlab)
 
-add_library(iganet_TEMPLATE INTERFACE)
-add_library(iganet::TEMPLATE ALIAS iganet_TEMPLATE)
+add_library(iganet_matlab INTERFACE)
+add_library(iganet::matlab ALIAS iganet_matlab)
 
 ########################################################################
 # IgANets (core)
@@ -44,23 +44,26 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
   set(CMAKE_CXX_EXTENSIONS OFF)
 endif()
 
-target_include_directories(iganet_TEMPLATE INTERFACE ${PROJECT_SOURCE_DIR}/src ${PROJECT_BINARY_DIR}/src)
+target_include_directories(iganet_matlab INTERFACE ${PROJECT_SOURCE_DIR}/src ${PROJECT_BINARY_DIR}/src)
 
 ########################################################################
 # Collect sources
 ########################################################################
-file(GLOB SOURCES src/*.cxx)
+find_package( Matlab COMPONENTS MX_LIBRARY )
 
-foreach(source ${SOURCES})
+if(Matlab_FOUND)
 
-  get_filename_component(name ${source} NAME_WE)
-  add_executable(${name} ${source})
-
-  if(IGANET_BUILD_PCH AND NOT WIN32 AND NOT ${CMAKE_VERSION} VERSION_LESS "3.16.0")
-    target_precompile_headers(${name} REUSE_FROM iganet_pch)
-  endif()
-
-  target_compile_options(${name} PRIVATE "-DIGANET_DATA_DIR=\"${PROJECT_SOURCE_DIR}/filedata/\"")
-  target_link_libraries(${name} PRIVATE iganet::core)
+  file(GLOB SOURCES src/*.cxx)
   
-endforeach()
+  foreach(source ${SOURCES})
+    
+    get_filename_component(mexname ${source} NAME_WE)
+    string(REGEX REPLACE "^mex" "" name "${mexname}")
+    matlab_add_mex(NAME ${name} SRC ${source})
+        
+    target_compile_options(${name} PRIVATE "-DIGANET_DATA_DIR=\"${PROJECT_SOURCE_DIR}/filedata/\"")
+    target_link_libraries(${name} iganet::core)
+    
+  endforeach()
+
+endif()
