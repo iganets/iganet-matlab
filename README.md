@@ -1,4 +1,4 @@
-# iganets-Matlab
+# IGAnets-Matlab
 
 [![GitlabSync](https://github.com/iganets/iganet-matlab/actions/workflows/gitlab-sync.yml/badge.svg)](https://github.com/iganets/iganet-matlab/actions/workflows/gitlab-sync.yml)
 [![CMake on multiple platforms](https://github.com/iganets/iganet-matlab/actions/workflows/cmake-multi-platform.yml/badge.svg)](https://github.com/iganets/iganet-matlab/actions/workflows/cmake-multi-platform.yml)
