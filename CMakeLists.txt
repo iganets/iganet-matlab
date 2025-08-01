@@ -14,6 +14,8 @@
 
 cmake_minimum_required (VERSION 3.24)
 
+include(FetchContent)
+
 ########################################################################
 #
 # Project: IgANet-Matlab
@@ -23,16 +25,25 @@ project(IgANet-Matlab)
 
 add_library(iganet_matlab INTERFACE)
 add_library(iganet::matlab ALIAS iganet_matlab)
+target_include_directories(iganet_matlab INTERFACE ${PROJECT_SOURCE_DIR}/src ${PROJECT_BINARY_DIR}/src)
 
 ########################################################################
 # IgANets (core)
 ########################################################################
 if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
-  include(FetchContent)
-  FetchContent_Declare(
-    iganet_core
-    URL https://github.com/IgANets/iganet/archive/refs/heads/master.zip
-  )
+
+  if(EXISTS "${CMAKE_SOURCE_DIR}/.git")
+    FetchContent_Declare(
+      iganet_core
+      GIT_REPOSITORY https://github.com/iganets/iganet.git
+    )
+  else()  
+    FetchContent_Declare(
+      iganet_core
+      URL https://github.com/IgANets/iganet/archive/refs/heads/master.zip
+    )
+  endif()
+     
   FetchContent_MakeAvailable(iganet_core)
   FetchContent_GetProperties(iganet_core)
   
@@ -44,12 +55,10 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
   set(CMAKE_CXX_EXTENSIONS OFF)
 endif()
 
-target_include_directories(iganet_matlab INTERFACE ${PROJECT_SOURCE_DIR}/src ${PROJECT_BINARY_DIR}/src)
-
 ########################################################################
 # Collect sources
 ########################################################################
-find_package( Matlab COMPONENTS MX_LIBRARY )
+find_package(Matlab COMPONENTS MX_LIBRARY)
 
 if(Matlab_FOUND)
 
