@@ -1,7 +1,7 @@
 # IGAnets-Matlab
 
 [![GitlabSync](https://github.com/iganets/iganet-matlab/actions/workflows/gitlab-sync.yml/badge.svg)](https://github.com/iganets/iganet-matlab/actions/workflows/gitlab-sync.yml)
-[![CMake on multiple platforms](https://github.com/iganets/iganet-matlab/actions/workflows/cmake-multi-platform.yml/badge.svg)](https://github.com/iganets/iganet-matlab/actions/workflows/cmake-multi-platform.yml)
+[![CI](https://github.com/iganets/iganet-matlab/actions/workflows/ci-push-pr.yml/badge.svg)](https://github.com/iganets/iganet-matlab/actions/workflows/ci-push-pr.yml)
 [![Documentation](https://img.shields.io/badge/docs-mkdocs-blue.svg)](https://iganets.github.io/iganet/)
 
 [![GitHub Releases](https://img.shields.io/github/release/iganets/iganet-matlab.svg)](https://github.com/iganets/iganet-matlab/releases)
