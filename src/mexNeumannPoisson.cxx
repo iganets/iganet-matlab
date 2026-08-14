@@ -15,7 +15,7 @@
 #include <codecvt>  // For std::codecvt_utf8_utf16
 #include <locale>   // For std::wstring_convert
 
-#include <iganet.h>
+#include <iganet/iganet.h>
 #include <mexAdapter.hpp>
 
 using namespace iganet::literals;
